@@ -145,7 +145,7 @@ export default function CheckoutPage() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: razorpayAmount,
         currency: razorpayCurrency,
-        name: "Your Store Name",
+        name: "Tanariry",
         description: "Purchase Payment",
         order_id: razorpayOrderId, // Use the ID returned by your backend
         handler: async function (response) {
