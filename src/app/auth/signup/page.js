@@ -21,9 +21,9 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const { login } = useAuth();  // YE HAI TERA JADU
+  const { login } = useAuth(); 
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   setError("");
   setLoading(true);
@@ -31,47 +31,86 @@ export default function SignUpPage() {
   try {
     const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+    // Trim all values
     const payload = {
-      firstName,
-      lastName,
-      email,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone.trim(),
       password,
-      phone,
       addresses: [{
-        address,
-        pincode,
-        city,
-        state,
+        address: address.trim(),
+        city: city.trim(),
+        state: state.trim(),
+        pincode: pincode.trim(),
         country: country || "India"
       }]
     };
 
-    const res = await fetch(`${API}/api/auth/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    // STEP 1: SIGNUP
+    const signupRes = await fetch(`${API}/api/auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    // YE HAI FIX — 204 bhi success maana jayega
-    if (!res.ok && res.status !== 204) {
-      let errorMsg = "Signup failed";
-      try {
-        const errorText = await res.text();
-        const errorData = errorText ? JSON.parse(errorText) : {};
-        errorMsg = errorData.message || errorMsg;
-      } catch {}
-      throw new Error(errorMsg);
+    if (!signupRes.ok) {
+      let msg = "Signup failed";
+      if (signupRes.status === 429) {
+        msg = "Too many attempts. Please wait 1 minute and try again.";
+      } else {
+        try {
+          const err = await signupRes.json();
+          msg = err.message || msg;
+        } catch {
+          msg = await signupRes.text() || msg;
+        }
+      }
+      throw new Error(msg);
     }
 
-    // Success — chahe 200 ho ya 204
-    toast.success(`Namaste ${firstName}! Welcome to TanaRiri Family!`);
+    toast.success(`Namaste ${firstName}! Account created successfully!`);
 
-    // AUTO LOGIN — Profile icon turant dikhega
-    await login(email || phone, password);
+    // STEP 2: AUTO LOGIN (100% reliable way)
+    const loginRes = await fetch(`${API}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        emailOrPhone: email || phone,
+        password,
+      }),
+    });
+
+    if (!loginRes.ok) {
+      toast.success("Account created! Please login to continue.");
+      router.push("/auth/login");
+      return;
+    }
+
+    const loginData = await loginRes.json();
+    const token = loginData.token || loginData.data?.token;
+
+    if (!token) {
+      toast.success("Account created! Logging you in...");
+      router.push("/auth/login");
+      return;
+    }
+
+    // Save token
+    localStorage.setItem("token", token);
+
+    if (typeof login === "function") {
+      try { await login(email || phone, password); } catch {}
+    }
+
+    // FINAL SUCCESS
+    toast.success("Welcome back! Redirecting to home...");
+    router.push("/");
 
   } catch (err) {
+    console.error("Signup/Login Error:", err);
     toast.error(err.message || "Something went wrong. Please try again.");
-    setError(err.message || "Something went wrong. Please try again.");
+    setError(err.message || "Something went wrong");
   } finally {
     setLoading(false);
   }
@@ -105,7 +144,7 @@ export default function SignUpPage() {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* SAB KUCH BILKUL TERA ORIGINAL JAISE HI HAI */}
+            
             <div>
               <label className="block text-sm font-medium mb-1">First Name <span className="text-red-500">*</span></label>
               <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black" placeholder="John" required disabled={loading} />

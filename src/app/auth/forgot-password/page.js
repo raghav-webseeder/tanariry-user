@@ -1,4 +1,4 @@
-// src/app/(auth)/lost-password/page.js
+
 "use client";
 
 import { useState } from "react";

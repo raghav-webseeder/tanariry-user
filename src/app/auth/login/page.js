@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Mail, Phone, Eye, EyeOff } from "lucide-react";
-import { useAuth } from '@/context/AuthContext';   // YE IMPORT HAI
+import { useAuth } from '@/context/AuthContext';   
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -14,9 +14,9 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const { login: authLogin } = useAuth();   // YE LE RAHA HAI CONTEXT KA LOGIN
+  const { login: authLogin } = useAuth();  
 
-  // Real-time icon detection
+
   const { isEmail, isPhone } = useMemo(() => {
     const value = identifier ?? "";
     const trimmed = String(value).trim();
@@ -38,7 +38,7 @@ export default function LoginPage() {
       toast.success("Welcome back to TanaRiri!");
 
       router.push('/');
-      router.refresh();   // YE HAI SECRET – NEXT.JS APP ROUTER KA BEST FRIEND
+      router.refresh();  
 
     } catch (err) {
       toast.error(err.message || "Invalid credentials");

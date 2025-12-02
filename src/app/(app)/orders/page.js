@@ -260,10 +260,8 @@ const downloadInvoice = async (order) => {
       throw new Error(`Server Error: ${response.status}`);
     }
 
-    // YE LINE CHANGE KAR DO → .blob() karo, .json() bilkul nahi!
     const blob = await response.blob();
 
-    // Direct download kar do
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

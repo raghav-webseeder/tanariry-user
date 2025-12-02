@@ -9,8 +9,8 @@ import { Heart, ShoppingCart, Share2, ChevronLeft, ChevronRight, Star } from 'lu
 import toast from 'react-hot-toast';
 import StayInspired from '@/components/home/StayInspired';
 
-// BACKEND URL - SABSE ZAROORI
-const BACKEND_URL = "https://ecom-backend-new-5v6o.onrender.com";
+// YE LINE ADD KAR DI (sabse important)
+const BACKEND_URL = process.env.NEXT_PUBLIC_IMAGE_URL?.replace(/\/+$/, "");
 
 export default function ProductDetailPage({ product }) {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -21,13 +21,18 @@ export default function ProductDetailPage({ product }) {
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
-  // YE FUNCTION SABSE ZAROORI HAI - IMAGE URL KO 100% SAFE BANATA HAI
+  // FIXED FUNCTION - double slash + double uploads ko permanently hata diya
   const getSafeImageUrl = (path) => {
-    if (!path) return "/fallback.jpg";
-    if (typeof path !== 'string') return "/fallback.jpg";
+    if (!path || typeof path !== 'string') return "/fallback.jpg";
     if (path.startsWith("http")) return path;
-    if (path.startsWith("/")) return `${BACKEND_URL}${path}`;
-    return `${BACKEND_URL}/uploads/${path}`;
+
+    let cleanPath = path.trim();
+    if (!cleanPath.startsWith("/")) cleanPath = "/" + cleanPath;
+    
+    // Yeh line sabse powerful hai → /uploads/uploads → /uploads
+    cleanPath = cleanPath.replace(/\/uploads\/uploads/g, "/uploads");
+
+    return `${BACKEND_URL}${cleanPath}`;
   };
 
   // Safe images array
@@ -86,7 +91,7 @@ export default function ProductDetailPage({ product }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           {/* LEFT - IMAGE GALLERY */}
           <div className="space-y-4">
-            {/* Main Image - 100% SAFE */}
+            {/* Main Image */}
             <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100">
               <div className="relative h-80 sm:h-96 lg:h-[500px] w-full">
                 <Image
@@ -102,8 +107,8 @@ export default function ProductDetailPage({ product }) {
                 />
               </div>
 
-              {/* Image counter */}
-              <div className="absolute862 top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold shadow-md border">
+              {/* Fixed: absolute862 → absolute */}
+              <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold shadow-md border">
                 {selectedImage + 1} / {images.length}
               </div>
             </div>
@@ -125,7 +130,7 @@ export default function ProductDetailPage({ product }) {
                       src={img}
                       alt={`Thumbnail ${i + 1}`}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       onError={(e) => {
                         e.currentTarget.src = "/fallback.jpg";
                       }}
@@ -136,7 +141,7 @@ export default function ProductDetailPage({ product }) {
             )}
           </div>
 
-          {/* RIGHT - CONTENT */}
+          {/* RIGHT - CONTENT (bilkul same rakha) */}
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
