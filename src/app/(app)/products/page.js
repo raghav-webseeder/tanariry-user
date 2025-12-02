@@ -1,13 +1,12 @@
-// app/products/page.jsx
+'use client';  
+
 import { Suspense } from 'react';
 import ProductsContent from './ProductsContent';
 import { fetchAllProducts } from '@/lib/api';
 
 async function ProductsData() {
   try {
-    const products = await fetchAllProducts(); // API CALL
-    // console.log('Products loaded:', products.length); // DEBUG
-
+    const products = await fetchAllProducts();
     return <ProductsContent products={products} />;
   } catch (error) {
     console.error('API Error:', error.message);
