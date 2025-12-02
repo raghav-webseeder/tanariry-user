@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ecom-backend-new-5v6o.onrender.com',
+        hostname: 'api.tanaririllp.com',
         pathname: '/uploads/**',        // ← Images ke liye
       },
       {
@@ -25,12 +25,12 @@ const nextConfig = {
       // Customer orders route (specific first)
       {
         source: '/api/customer-orders/:path*',
-        destination: 'https://ecom-backend-new-5v6o.onrender.com/api/customer-orders/:path*',
+        destination: 'https://api.tanaririllp.com/api/customer-orders/:path*',
       },
       // All other API routes
       {
         source: '/api/:path*',
-        destination: 'https://ecom-backend-new-5v6o.onrender.com/api/:path*',
+        destination: 'https://api.tanaririllp.com/api/:path*',
       },
     ];
   },
