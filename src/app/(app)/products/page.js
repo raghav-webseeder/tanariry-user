@@ -6,7 +6,7 @@ import { fetchAllProducts } from '@/lib/api';
 async function ProductsData() {
   try {
     const products = await fetchAllProducts(); // API CALL
-    console.log('Products loaded:', products.length); // DEBUG
+    // console.log('Products loaded:', products.length); // DEBUG
 
     return <ProductsContent products={products} />;
   } catch (error) {
