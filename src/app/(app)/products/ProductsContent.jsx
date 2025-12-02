@@ -71,7 +71,6 @@ useEffect(() => {
     setCurrentPage(1);
   }, [activeCat]);
 
-  // URL se category set karna
   useEffect(() => {
     if (!loadingCats && categoryFromURL && categories.length > 0) {
       const matchedCat = categories.find(
@@ -90,7 +89,7 @@ useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await fetch(`${API_BASE}/api/categories/getallcategories`);
-        if (!res.ok) throw new Error("Categories load nahi hue");
+        if (!res.ok) throw new Error("Failed to load categories. Please try again.");
         const result = await res.json();
         setCategories(result.data || []);
       } catch (err) {
@@ -161,7 +160,7 @@ useEffect(() => {
 
     } catch (err) {
       console.error("Products fetch error:", err);
-      setError("Products load nahi hue.");
+      setError("Failed to load products. Please try again.");
       setProducts([]);
       setTotalProducts(0);
     } finally {

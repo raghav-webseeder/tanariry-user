@@ -10,11 +10,8 @@ export default function ProfileDropdown() {
   const dropdownRef = useRef(null);
   const timeoutRef = useRef(null);
   const router = useRouter();
-
-  // YE LINE CHANGE KAR DE — loading bhi le
   const { isLoggedIn, logout, loading } = useAuth();
 
-  // JAB TAK LOADING HAI → KUCH MAT DIKHA (ya skeleton dikha sakta hai)
   if (loading) {
     return (
       <div className="flex items-center gap-1.5 px-3 py-2">
@@ -26,7 +23,7 @@ export default function ProfileDropdown() {
   const handleLogout = () => {
     logout();
     setIsOpen(false);
-    // Smooth redirect
+  
     router.push("/auth/login");
   };
 
@@ -58,7 +55,7 @@ export default function ProfileDropdown() {
     };
   }, [isOpen]);
 
-  // NOT LOGGED IN → Show Login
+
   if (!isLoggedIn) {
     return (
       <Link
@@ -75,7 +72,6 @@ export default function ProfileDropdown() {
     );
   }
 
-  // LOGGED IN → Show Profile Icon + Dropdown
   return (
     <div
       ref={dropdownRef}

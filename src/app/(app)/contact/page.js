@@ -158,7 +158,7 @@ export default function ContactPage() {
     };
 
     if (!payload.customerInfo.firstName || !payload.customerInfo.email || !payload.description) {
-      toast.error("First Name, Email aur Message bharna zaroori hai!");
+      toast.error("Please fill in First Name, Email, and Message!");
       return;
     }
 
@@ -221,14 +221,14 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm leading-loose">
               <div>
                 <h3 className="mb-2 text-xl font-medium">Corporate Office</h3>
-                <address className="not-italic text-gray-600 text-sm leading-relaxed max-w-xs mx-auto sm:max-w-none">
-                  <span className="block sm:inline">207, Shyam Kunj, Shree Shyam Heights,</span>
-                  <span className="block sm:inline">Sampat Hills, Bicholi Mardana,</span>
+                <address className="not-italic text-gray-600 text-sm leading-relaxed">
+                  <span className="block sm:inline">207, Shyam Kunj, Shree Shyam Heights, </span>
+                  <span className="block sm:inline">Sampat Hills, Bicholi Mardana, </span>
                   <span className="block sm:inline">Indore – 452016, India</span>
                 </address>
               </div>
 
-              <div>
+              <div className="ml-2">
                 <h3 className="mb-2 text-xl font-medium">Business Hours</h3>
                 <p className="text-gray-600">Monday – Saturday</p>
                 <p className="text-gray-600">10:00 AM – 6:00 PM IST</p>

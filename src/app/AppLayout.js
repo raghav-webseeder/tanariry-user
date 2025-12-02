@@ -7,8 +7,6 @@ import { usePathname } from 'next/navigation';
 
 export default function AppLayout({ children }) {
   const pathname = usePathname();
-
-  // Agar auth page hai toh Header/Footer mat dikha
   const isAuthPage = pathname.startsWith('/auth');
 
   return (

@@ -32,7 +32,6 @@ export default function WishlistSidebar({ isOpen, onClose }) {
 
   const isEmpty = visibleWishlist.length === 0;
 
-  // AUTO-CLOSE SIRF LAST ITEM REMOVE PE
   useEffect(() => {
     if (justRemoved && isEmpty && isOpen) {
       const timer = setTimeout(() => onClose(), 400);
@@ -44,7 +43,7 @@ export default function WishlistSidebar({ isOpen, onClose }) {
 
   return (
     <>
-      {/* OVERLAY — SABSE UPAR + CLICKABLE BLOCK */}
+      
       <div
         className={`fixed inset-0 bg-black/50 z-[99] transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -52,13 +51,13 @@ export default function WishlistSidebar({ isOpen, onClose }) {
         onClick={onClose}
       />
 
-      {/* SIDEBAR — SABSE UPAR */}
+  
       <div
         className={`fixed right-0 top-0 h-full w-full max-w-md bg-white rounded-l-2xl shadow-2xl z-[100] transition-transform duration-300 ease-in-out flex flex-col ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header */}
+        
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h3 className="text-lg font-semibold flex items-center gap-2">
             <Heart className="w-5 h-5 text-red-500 fill-red-500" />
@@ -77,7 +76,7 @@ export default function WishlistSidebar({ isOpen, onClose }) {
           <div className="space-y-6">
             {mounted ? (
               isEmpty ? (
-                // EMPTY WISHLIST
+               
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <Heart className="w-24 h-24 text-gray-300 mb-4" />
                   <p className="text-gray-500 mb-4">Your wishlist is empty!</p>

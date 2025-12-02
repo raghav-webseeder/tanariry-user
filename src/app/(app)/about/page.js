@@ -1,9 +1,8 @@
-// src/app/(app)/about/page.js
+
 import Image from "next/image";
 import Link from "next/link";
 import StayInspired from "@/components/home/StayInspired";
 
-// === SAME ICONS (Unchanged) ===
 const AuthenticSimplicityIcon = () => (
   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 3L3 20L20 37L37 20L20 3Z" stroke="#4A5568" strokeWidth="2" strokeLinejoin="round"/>
@@ -228,46 +227,61 @@ export default function AboutPage() {
       </section>
 
       {/* 4. Sustainability & Craftsmanship */}
-      <section className="py-20 px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          
-          <div className="relative overflow-hidden">
-            {/* SAME IMAGE */}
-            <img src="/assests/sustain2.jpeg" alt="Sustainable sourcing" className="w-full h-full object-cover"/>
-            <div className="absolute inset-0 p-8 flex flex-col justify-end" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
-              <h3 className="text-4xl text-white mb-4" style={{ fontFamily: "Playfair Display, serif", fontWeight: 400, fontSize: "58px" }}>
-                Sustainability
-              </h3>
-              <br /><br /><br />
-              <p className="text-white">
-               Tanariri Overseas LLP is moving toward sustainable sourcing, eco-packaging, and ethical production, ensuring our business not only thrives—but nurtures the communities and environment around it.
-              </p>
-              <br />
-              <p className="text-white mt-2">
-                Our goal: 100% carbon-neutral shipping for EU orders by 2026.
-              </p>
-            </div>
-          </div>
+      <section className="py-16 px-4 md:px-8 lg:px-12 bg-gray-50">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-7xl mx-auto">
 
-          <div className="relative overflow-hidden">
-            {/* SAME IMAGE */}
-            <img src="/assests/craftman.jpg" alt="Indian craftsmanship" className="w-full h-full object-cover"/>
-            <div className="absolute inset-0 p-8 flex flex-col justify-end" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
-              <h3 className="text-4xl text-white mb-4" style={{ fontFamily: "Playfair Display, serif", fontWeight: 400, fontSize: "58px" }}>
-                Craftsmanship
-              </h3>
-              <br /><br /><br />
-              <p className="text-white">
-                Every product is handcrafted using traditional techniques — from gold-plating to hand-block printing.
-              </p>
-              <br />
-              <p className="text-white mt-2">
-                We partner with MSME clusters and SEDEX-compliant units for quality and ethics.
-              </p>
+            {/* Sustainability Card */}
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+              <img 
+                src="/assests/sustain2.jpeg" 
+                alt="Sustainable sourcing" 
+                className="w-full h-96 md:h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 md:p-8 flex flex-col justify-end">
+                <h3 className="text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight"
+                    style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}>
+                  Sustainability
+                </h3>
+                
+                <div className="space-y-3 text-white text-sm md:text-base lg:text-lg leading-relaxed">
+                  <p>
+                    Tanariri Overseas LLP is moving toward sustainable sourcing, eco-packaging, and ethical production, ensuring our business not only thrives — but nurtures the communities and environment around it.
+                  </p>
+                  <p className="font-medium text-pink-200">
+                    Our goal: 100% carbon-neutral shipping for EU orders by 2026.
+                  </p>
+                </div>
+              </div>
             </div>
+
+            {/* Craftsmanship Card */}
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+              <img 
+                src="/assests/craftman.jpg" 
+                alt="Indian craftsmanship" 
+                className="w-full h-96 md:h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 md:p-8 flex flex-col justify-end">
+                <h3 className="text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight"
+                    style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}>
+                  Craftsmanship
+                </h3>
+                
+                <div className="space-y-3 text-white text-sm md:text-base lg:text-lg leading-relaxed">
+                  <p>
+                    Every product is handcrafted using traditional techniques — from gold-plating to hand-block printing.
+                  </p>
+                  <p className="font-medium text-pink-200">
+                    We partner with MSME clusters and SEDEX-compliant units for quality and ethics.
+                  </p>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* 5. Quote */}
       <section className="py-20 px-4 text-center">

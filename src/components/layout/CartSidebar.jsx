@@ -48,7 +48,7 @@ function CartItem({ item, removeFromCart, updateQuantity, getTotal }) {
           </h4>
           <div className="flex items-center gap-2">
             <span className="font-medium text-sm">
-              ${itemTotal}
+              ₹{itemTotal}
             </span>
             <button
               onClick={() => removeFromCart(item._id || item.id)}
@@ -230,7 +230,7 @@ export default function CartSidebar({ isOpen, onClose }) {
             </p>
             <div className="flex justify-between items-center font-medium">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>₹{subtotal.toFixed(2)}</span>
             </div>
             <p className="text-xs text-gray-500 text-center">
               Shipping, taxes, and discounts calculated at checkout.

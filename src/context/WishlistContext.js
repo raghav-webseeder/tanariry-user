@@ -14,18 +14,17 @@ export function WishlistProvider({ children }) {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Load Guest Wishlist
+
   useEffect(() => {
     if (!user) {
       const data = localStorage.getItem(GUEST_KEY);
       if (data) {
         const parsed = JSON.parse(data);
-        setWishlist(parsed.map(p => ({ _id: p._id || p.id }))); // ensure uniform structure
+        setWishlist(parsed.map(p => ({ _id: p._id || p.id }))); 
       }
     }
   }, [user]);
 
-  // Sync from Backend
   const syncWithBackend = useCallback(async () => {
   if (!user || !token) return;
 
@@ -45,7 +44,6 @@ export function WishlistProvider({ children }) {
     const productIds = await res.json(); 
     console.log("Backend wishlist IDs:", productIds);  
 
-    // YEHI LINE CHANGE KAR – BAS ITNA
     setWishlist(productIds.map(id => ({ _id: id })));
 
   } catch (err) {
@@ -59,7 +57,6 @@ export function WishlistProvider({ children }) {
     if (user && token) syncWithBackend();
   }, [user, token, syncWithBackend]);
 
-  // Helper: Standardize ID
   const normalizeId = (product) =>
     typeof product === "string" ? product : product?._id || product?.id;
 

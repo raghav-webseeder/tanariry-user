@@ -5,7 +5,6 @@ import { createContext, useContext, useReducer, useEffect } from 'react';
 
 const CartContext = createContext();
 
-// Safe ID getter - _id ya id dono support karega
 const getItemId = (item) => item._id || item.id;
 
 const cartReducer = (state, action) => {
@@ -15,7 +14,7 @@ const cartReducer = (state, action) => {
       const existing = state.find(item => getItemId(item) === payloadId);
 
       if (existing) {
-        // Agar pehle se hai → quantity add kar do (jo bhi bheja gaya ho)
+        
         const newQuantity = existing.quantity + (action.payload.quantity || 1);
         return state.map(item =>
           getItemId(item) === payloadId
@@ -23,7 +22,7 @@ const cartReducer = (state, action) => {
             : item
         );
       }
-      // Naya product → quantity payload se lo, warna 1
+   
       return [...state, { ...action.payload, quantity: action.payload.quantity || 1 }];
     }
 
@@ -65,7 +64,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  // UPDATED addToCart — ab quantity properly pass hogi
+
   const addToCart = (product) => {
     const quantity = product.quantity && product.quantity > 0 ? product.quantity : 1;
     const itemToAdd = {
